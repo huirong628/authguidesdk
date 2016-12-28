@@ -3,6 +3,7 @@ package com.huirong.authguidelib;
 import android.content.Context;
 
 import com.huirong.authguidelib.rom.Rom;
+import com.huirong.authguidelib.rom.RomFactory;
 
 /**
  * Created by HuirongZhang
@@ -14,8 +15,18 @@ public class AuthGuider {
     private static Rom mCurrentRom;
 
     public AuthGuider(Context context, boolean isDebug) {
-        SdkEnv.context = context;
+        SdkEnv.mContext = context;
         SdkEnv.DEBUG = isDebug;
+        SdkEnv.mPackageName = context.getPackageName();
+        init();
+    }
+
+    private void init() {
+        mCurrentRom = RomFactory.getInstance().createRom();
+    }
+
+    public Rom getCurrentRom() {
+        return mCurrentRom;
     }
 
     /**
@@ -24,6 +35,9 @@ public class AuthGuider {
      * @return
      */
     public int queryAuthStatus(int authCode) {
-        return mCurrentRom != null && authCode >= 1 && authCode <= 27 ? mCurrentRom.queryAuthStatus(authCode) : 6;
+        if (mCurrentRom != null) {
+            return mCurrentRom.queryAuthStatus(authCode);
+        }
+        return AuthConstant.AUTH_STATUS_UNADAPTED;
     }
 }

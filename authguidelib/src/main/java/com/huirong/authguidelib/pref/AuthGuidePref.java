@@ -7,4 +7,7 @@ package com.huirong.authguidelib.pref;
 
 public class AuthGuidePref {
 
+    public static int getAuthStatus(int authCode) {
+        return 0;
+    }
 }

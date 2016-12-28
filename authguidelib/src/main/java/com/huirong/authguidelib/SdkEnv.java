@@ -11,5 +11,8 @@ public class SdkEnv {
 
     public static boolean DEBUG = true;
 
-    public static Context context;
+    public static Context mContext;
+
+    public static String mPackageName;
+
 }
